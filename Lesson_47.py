@@ -46,7 +46,12 @@ def main():
                     query = "INSERT INTO customers VALUES (%s, %s, %s)"
                     cur.execute(query, rec_to_insert)
 
-            fp.close()
+                fp.close()
+
+            # Customers table filled
+            # Out of WITH xxx as cur: - cursor closed, connection ready for filling next file
+
+
 
     finally:
         if conn:
