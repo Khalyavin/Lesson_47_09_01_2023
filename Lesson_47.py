@@ -1,5 +1,4 @@
 import csv
-
 import psycopg2
 
 
@@ -51,7 +50,21 @@ def main():
             # Customers table filled
             # Out of WITH xxx as cur: - cursor closed, connection ready for filling next file
 
+            with conn.cursor() as cur:
+                fp = open(orders_file, 'r', encoding='UTF-8')
+                f_reader = csv.reader(fp)
 
+                # header - out
+                header = next(f_reader)
+                for row in f_reader:
+                    rec_to_insert = (row[0], row[1], row[2], row[3])
+                    query = "INSERT INTO customers VALUES (%s, %s, %s, %s)"
+                    cur.execute(query, rec_to_insert)
+
+                fp.close()
+
+            # Orders table filled
+            # Out of WITH xxx as cur: - cursor closed, connection closed in finally
 
     finally:
         if conn:
