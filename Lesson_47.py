@@ -18,34 +18,34 @@ def main():
 
     try:
         with conn:
-            # with conn.cursor() as cur:
-            #     fp = open(employees_file, 'r', encoding='UTF-8')
-            #     f_reader = csv.reader(fp)
-            #
-            #     # header - out
-            #     header = next(f_reader)
-            #     for row in f_reader:
-            #         rec_to_insert = (row[0], row[1], row[2], row[3], row[4])
-            #         query = "INSERT INTO employees(first_name, last_name, title, birth_date, notes) VALUES (%s, %s, %s, %s, %s)"
-            #         cur.execute(query, rec_to_insert)
-            #
-            #     fp.close()
+            with conn.cursor() as cur:
+                fp = open(employees_file, 'r', encoding='UTF-8')
+                f_reader = csv.reader(fp)
+
+                # header - out
+                header = next(f_reader)
+                for row in f_reader:
+                    rec_to_insert = (row[0], row[1], row[2], row[3], row[4])
+                    query = "INSERT INTO employees(first_name, last_name, title, birth_date, notes) VALUES (%s, %s, %s, %s, %s)"
+                    cur.execute(query, rec_to_insert)
+
+                fp.close()
 
             # Employee table filled
             # Out of WITH xxx as cur: - cursor closed, connection ready for filling next file
 
-            # with conn.cursor() as cur:
-            #     fp = open(customers_file, 'r', encoding='UTF-8')
-            #     f_reader = csv.reader(fp)
-            #
-            #     # header - out
-            #     header = next(f_reader)
-            #     for row in f_reader:
-            #         rec_to_insert = (row[0], row[1], row[2])
-            #         query = "INSERT INTO customers VALUES (%s, %s, %s)"
-            #         cur.execute(query, rec_to_insert)
-            #
-            #     fp.close()
+            with conn.cursor() as cur:
+                fp = open(customers_file, 'r', encoding='UTF-8')
+                f_reader = csv.reader(fp)
+
+                # header - out
+                header = next(f_reader)
+                for row in f_reader:
+                    rec_to_insert = (row[0], row[1], row[2])
+                    query = "INSERT INTO customers VALUES (%s, %s, %s)"
+                    cur.execute(query, rec_to_insert)
+
+                fp.close()
 
             # Customers table filled
             # Out of WITH xxx as cur: - cursor closed, connection ready for filling next file
@@ -73,3 +73,23 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+    # Asserts попытался написать, но похоже, это уже завтрашняя тема
+    # не стал забегать
+
+    # conn = psycopg2.connect(
+    #     host='localhost',
+    #     database='north',
+    #     user='postgres',
+    #     password='1'
+    # )
+    #
+    # try:
+    #     with conn:
+    #         with conn.cursor() as cur:
+    #             tmp = cur.execute("select employees.employee_id = 1 from employees")
+    #             print(tmp)
+    #
+    # finally:
+    #     if conn:
+    #         conn.close()
