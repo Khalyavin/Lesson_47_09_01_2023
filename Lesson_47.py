@@ -18,34 +18,34 @@ def main():
 
     try:
         with conn:
-            with conn.cursor() as cur:
-                fp = open(employees_file, 'r', encoding='UTF-8')
-                f_reader = csv.reader(fp)
-
-                # header - out
-                header = next(f_reader)
-                for row in f_reader:
-                    rec_to_insert = (row[0], row[1], row[2], row[3], row[4])
-                    query = "INSERT INTO employees(first_name, last_name, title, birth_date, notes) VALUES (%s, %s, %s, %s, %s)"
-                    cur.execute(query, rec_to_insert)
-
-                fp.close()
+            # with conn.cursor() as cur:
+            #     fp = open(employees_file, 'r', encoding='UTF-8')
+            #     f_reader = csv.reader(fp)
+            #
+            #     # header - out
+            #     header = next(f_reader)
+            #     for row in f_reader:
+            #         rec_to_insert = (row[0], row[1], row[2], row[3], row[4])
+            #         query = "INSERT INTO employees(first_name, last_name, title, birth_date, notes) VALUES (%s, %s, %s, %s, %s)"
+            #         cur.execute(query, rec_to_insert)
+            #
+            #     fp.close()
 
             # Employee table filled
             # Out of WITH xxx as cur: - cursor closed, connection ready for filling next file
 
-            with conn.cursor() as cur:
-                fp = open(customers_file, 'r', encoding='UTF-8')
-                f_reader = csv.reader(fp)
-
-                # header - out
-                header = next(f_reader)
-                for row in f_reader:
-                    rec_to_insert = (row[0], row[1], row[2])
-                    query = "INSERT INTO customers VALUES (%s, %s, %s)"
-                    cur.execute(query, rec_to_insert)
-
-                fp.close()
+            # with conn.cursor() as cur:
+            #     fp = open(customers_file, 'r', encoding='UTF-8')
+            #     f_reader = csv.reader(fp)
+            #
+            #     # header - out
+            #     header = next(f_reader)
+            #     for row in f_reader:
+            #         rec_to_insert = (row[0], row[1], row[2])
+            #         query = "INSERT INTO customers VALUES (%s, %s, %s)"
+            #         cur.execute(query, rec_to_insert)
+            #
+            #     fp.close()
 
             # Customers table filled
             # Out of WITH xxx as cur: - cursor closed, connection ready for filling next file
@@ -57,14 +57,14 @@ def main():
                 # header - out
                 header = next(f_reader)
                 for row in f_reader:
-                    rec_to_insert = (row[0], row[1], row[2], row[3])
-                    query = "INSERT INTO customers VALUES (%s, %s, %s, %s)"
+                    rec_to_insert = (row[0], row[1], row[2], row[3], row[4])
+                    query = "INSERT INTO orders VALUES (%s, %s, %s, %s, %s)"
                     cur.execute(query, rec_to_insert)
 
                 fp.close()
 
-            # Orders table filled
-            # Out of WITH xxx as cur: - cursor closed, connection closed in finally
+            # # Orders table filled
+            # # Out of WITH xxx as cur: - cursor closed, connection closed in finally
 
     finally:
         if conn:
